@@ -27,4 +27,6 @@ This plugin adds a "invert selection" button when adding models from the auto-fe
 
 # REMOVAL
 1. delete the `/home/dshuser/.dsh/profiles/<profile>/plugins/models-invert-selection`
-2. rerun the `pnpm install` as in the installation
+2. remove the relative lines from the `<profile>/package.json`
+3. rerun the `pnpm install` as we did in the installation
+4. restart the container/service
