@@ -1,3 +1,5 @@
+This plugin adds a "invert selection" button when adding models from the auto-fetched list of the providers, so only the ones we already have are checked.
+
 # INSTALLATION
 1. clone this repo, then copy its content into `/home/dshuser/.dsh/profiles/<profile>/plugins/models-invert-selection`
 2. add the plugin to the `<profile>/package.json` by appending it to the dependencies and bundle like in this example:
