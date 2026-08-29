@@ -1,5 +1,5 @@
 # INSTALLATION
-1. clone this repo, then copy its content into `/home/dshuser/.dsh/profiles/<profile>/plugins`
+1. clone this repo, then copy its content into `/home/dshuser/.dsh/profiles/<profile>/plugins/models-invert-selection`
 2. add the plugin to the `<profile>/package.json` by appending it to the dependencies and bundle like in this example:
 
 ``` json
@@ -20,3 +20,7 @@
 ```
 3. from the profile's directory i.e. `/home/dshuser/.dsh/profiles/web`, we run `pnpm install`, be aware that you need to be the correct user, root might fail.
 4. restart the container/service
+
+# REMOVAL
+1. delete the `/home/dshuser/.dsh/profiles/<profile>/plugins/models-invert-selection`
+2. rerun the `pnpm install` as in the installation
