@@ -11,7 +11,7 @@ This plugin adds a "invert selection" button when adding models from the auto-fe
   "name": "dsh-profile-web",
   "private": true,
   "dependencies": {
-    "dsh-ui-models-invert": "file:./plugins/models-invert-selection"
+      "dsh-ui-models-invert-selection": "file:./plugins/models-invert-selection"
   },
   "dsh": {
     "profile": {
