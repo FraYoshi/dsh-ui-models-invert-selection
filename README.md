@@ -4,6 +4,8 @@ A [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) client plu
 
 The shipped dialog pre-checks every fetched row that is **not** already in your model list. On a second "fetch + add" pass you usually want the inverse — keep the rows you already have, drop the rest. This plugin adds a single button that flips every checkbox at once.
 
+**NOTE**: as at the current state, this packages has been heavily vibecoded, including most of this README. I might rewrite it at the later date, but you have been warned :)
+
 ![preview](media/thumb.webp)
 
 ## Install
