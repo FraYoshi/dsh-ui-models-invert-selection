@@ -2,6 +2,8 @@
 
 A [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) client plugin that adds an **"Invert selection"** button to the fetch-models dialog of the **Models** settings section. The shipped dialog preselects every fetched row that is **not** already in the model list; on a second "fetch + add" pass you usually want the inverse — keep the rows you already have, drop the rest. This plugin adds a single button that flips every checkbox in the dialog at once.
 
+**NOTE**: as at the current state, this packages has been heavily vibecoded, including most of this README. I might rewrite it at the later date, but you have been warned :)
+
 ![thumbnail](media/thumb.webp)
 
 ## What it does
@@ -52,13 +54,13 @@ pnpm clones the repo, runs `npm pack` from the cloned `package.json` to build th
 If you have the source locally (or want to hack on it), install it directly:
 
 ```sh
-dsh plugin --profile web add @furayoshi/dsh-ui-models-invert-selection@file:/home/<you>/work/dsh-ui-models-invert-selection
+dsh plugin --profile web add @furayoshi/dsh-ui-models-invert-selection@file:/path/to/dsh-ui-models-invert-selection
 ```
 
 The `file:` spec is pnpm's way to install from a local path. pnpm links the package's `files` into the profile's `node_modules/@furayoshi/dsh-ui-models-invert-selection/`. The profile's `pnpm-workspace.yaml` sets `nodeLinker: hoisted`, so the linked files are **copies**, not symlinks — this means a rebuild of the source does **not** automatically reflect in the installed copy. After editing `lib/` re-link the package:
 
 ```sh
-# From inside the profile directory:
+# From inside the profile's directory:
 rm -rf node_modules/@furayoshi && pnpm install
 ```
 
@@ -136,29 +138,6 @@ Both appear in the package that ships the Models settings section. To update:
 1. Open the new `dsh-client-ui-models` (or equivalent) `lib/client.js` in your editor and search for `candidateActions` and `candidateList`. If a base name has changed, update the corresponding selector in `lib/client.js` (look for `div[class*="candidateActions"]` and `div[class*="candidateList"]`).
 2. No build step — `lib/client.js` is shipped as-is.
 3. Bump the version in `package.json` (the user-facing change is a patch for a single-base-name fix, minor for a structural change, major for an API change). Then `npm publish` (see the **Publishing** section below).
-
-## Publishing
-
-This package is published on npmjs under the `@furayoshi` scope, owned by **FraYoshi** (`frayoshi <npmjs@furayoshi.com>`).
-
-```sh
-# 1. Make sure the working tree is clean and on main
-git checkout main && git pull
-
-# 2. Bump the version (patch for CSS-hash fixes, minor for new behaviour)
-npm version patch   # or: minor, major
-
-# 3. Sanity-check what will be packed
-npm pack --dry-run
-
-# 4. Publish (you must be logged in as frayoshi, or an org member with publish rights)
-npm publish --access public
-
-# 5. Push the version tag and the version-bump commit
-git push --follow-tags origin main
-```
-
-A typical patch release of this plugin is ~3 kB unpacked: two `lib/*.js` files plus a 12-line `cordis.patch.yml`. The `files` list in `package.json` is the source of truth — anything not listed (`node_modules/`, `.git/`, `.github/`, `media/`) is excluded by `npm pack`.
 
 ## License
 
