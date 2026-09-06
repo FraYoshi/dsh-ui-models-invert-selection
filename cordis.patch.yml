@@ -1,11 +1,10 @@
-# Bundle layer for dsh-ui-models-invert-selection (local, file: dependency of this profile).
-#
-# Listed in package.json's `dsh.profile.bundles`, so this patch is applied as a
-# layer during profile boot — BEFORE the profile's own cordis.patch.yml and any
-# --patch overlay. The row carries no config: the plugin has none; it only adds
-# an "Invert selection" button to the fetch-models dialog of the Models section,
-# client-side. Removing this entry (or disabling the bundle) withdraws the row on
-# the next Profile start.
+# Patch layer for `@furayoshi/dsh-ui-models-invert-selection`. Inserted into the
+# host composition by `dsh.bundle.patch` (declared in this package's
+# package.json), so the client loader in `lib/client.js` actually runs. The row
+# carries no config: the plugin has none; it only adds an "Invert selection"
+# button to the fetch-models dialog of the Models section, client-side.
+# Removing this entry (or disabling the bundle) withdraws the row on the next
+# Profile start.
 - insert:
-    - id: ui-models-invert-selection
-      name: 'dsh-ui-models-invert-selection'
+    - id: '@furayoshi/dsh-ui-models-invert-selection'
+      name: '@furayoshi/dsh-ui-models-invert-selection'
