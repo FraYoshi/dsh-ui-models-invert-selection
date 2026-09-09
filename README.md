@@ -11,8 +11,6 @@ The shipped dialog pre-checks every fetched row that is **not** already in your 
 | `0.1.2-rc.1` | `1.0.0`    |
 | `0.1.1-rc.2` | `1.0.0`    |
 
-The current release works on **both** DSH lines: it adapts to the fetch-dialog markup change introduced between `0.1.1-rc.2` and `0.1.2-rc.1`, so one plugin version covers both. If a future plugin release requires the newer DSH, an upper bound will be added here for the older line — in that case, pin the last compatible version for your DSH. The button is injected into the dialog's internal structure, so **a DSH upgrade may break it**: if the button no longer appears after upgrading DSH, check the [repository](https://github.com/FraYoshi/dsh-ui-models-invert-selection) for an updated plugin version.
-
 **NOTE**: as at the current state, this packages has been heavily vibecoded, including most of this README. I might rewrite it at the later date, but you have been warned :)
 
 ![preview](media/thumb.webp)

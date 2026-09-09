@@ -1,6 +1,6 @@
 {
   "name": "@furayoshi/dsh-ui-models-invert-selection",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "DeepSeek Harness client plugin: adds an 'Invert selection' button to the fetch-models dialog of the Models settings section, so only the rows that are already in the model list stay checked on a second fetch + add pass.",
   "keywords": [
     "deepseek-harness",
