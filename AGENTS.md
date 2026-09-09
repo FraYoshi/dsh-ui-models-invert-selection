@@ -78,7 +78,8 @@ After upgrading `@deepseek-ai/dsh-client-ui-settings-models`:
    - Submit with inverted selection adds/skips the right models
 2. If any regresses: search the new `lib/client.js` of the upstream package for `candidateActions` / `candidateToolbar` / `candidateList`. If the base name changed, add the new spelling to the dual selector in `scan()` (keep the old one — the plugin must keep working on the previous dsh release) and update this table.
 3. Bump version: patch for single-name fix, minor for structural change, major for API change.
-4. `npm publish` (see Publishing below).
+4. Update the **Compatibility** table at the top of the README (if support for a DSH line is dropped, add an upper bound for that line).
+5. `npm publish` (see Publishing below).
 
 #### Known upstream changes
 

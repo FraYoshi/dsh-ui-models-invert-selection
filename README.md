@@ -4,7 +4,14 @@ A [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) client plu
 
 The shipped dialog pre-checks every fetched row that is **not** already in your model list. On a second "fetch + add" pass you usually want the inverse — keep the rows you already have, drop the rest. This plugin adds a single button that flips every checkbox at once.
 
-> **Compatibility:** works on DSH `>= 0.1.1-rc.2` (verified on `0.1.1-rc.2` and `0.1.2-rc.1`; it adapts to the fetch-dialog markup changes introduced between those releases). The button is injected into the Models dialog's internal structure, so **a future DSH upgrade may break it** — if the button no longer appears after an upgrade, the dialog markup has changed. Check the [repository](https://github.com/FraYoshi/dsh-ui-models-invert-selection) for an updated version.
+**Compatibility**
+
+| DSH version  | min version |
+| :--- | :--- |
+| `0.1.2-rc.1` | `1.0.0`    |
+| `0.1.1-rc.2` | `1.0.0`    |
+
+The current release works on **both** DSH lines: it adapts to the fetch-dialog markup change introduced between `0.1.1-rc.2` and `0.1.2-rc.1`, so one plugin version covers both. If a future plugin release requires the newer DSH, an upper bound will be added here for the older line — in that case, pin the last compatible version for your DSH. The button is injected into the dialog's internal structure, so **a DSH upgrade may break it**: if the button no longer appears after upgrading DSH, check the [repository](https://github.com/FraYoshi/dsh-ui-models-invert-selection) for an updated plugin version.
 
 **NOTE**: as at the current state, this packages has been heavily vibecoded, including most of this README. I might rewrite it at the later date, but you have been warned :)
 
