@@ -8,6 +8,12 @@ The shipped dialog pre-checks every fetched row that is **not** already in your 
 
 ![preview](media/thumb.webp)
 
+## Compatibility
+
+Tested on DSH `0.1.1-rc.2` and `0.1.2-rc.1` — the plugin adapts to the fetch-dialog markup changes introduced between those releases.
+
+The button is injected into the Models dialog's internal structure, so **a future DSH upgrade may break it**: if the button no longer appears after an upgrade, the dialog markup has changed. Check the [repository](https://github.com/FraYoshi/dsh-ui-models-invert-selection) for an updated version — `AGENTS.md` keeps a "Known upstream changes" table tracking these.
+
 ## Install
 
 DSH's `plugin` command handles the install and bundle registration automatically.

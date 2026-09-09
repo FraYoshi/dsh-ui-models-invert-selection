@@ -123,6 +123,9 @@ After upgrading `@deepseek-ai/dsh-client-ui-settings-models`:
 - `dsh.client.platform: "web"` → client runs in browser only.
 - `exports["/client"]` → allows `require("@furayoshi/dsh-ui-models-invert-selection/client")` (not used by DSH but standard).
 - `files` whitelist → controls `npm pack` output (media/ is intentionally excluded).
+- `engines.dsh` → **advisory only**. Declares the minimum DSH harness version (`>=0.1.1-rc.2`, the oldest version whose dialog markup the dual selector handles). Nothing enforces it: DSH's plugin tooling does not read `engines`, and pnpm cannot resolve a custom engine name. Do **not** switch this to `peerDependencies`/`dependencies` on `@deepseek-ai/dsh`: the harness is the host that loads the plugin, not a co-installed package — it is absent from profile `node_modules`, so a peer entry fails `pnpm install` (pnpm ≥ 10 strict peers) and a dependency entry would download a second full copy of the harness into every profile.
+
+  Semver note: pre-releases sort below their release, so `">=0.1.2"` would *exclude* `0.1.2-rc.1`. If the floor ever needs to be the 0.1.2 line including its pre-releases, write `">=0.1.2-rc.1"` (which still excludes the also-working 0.1.1-rc.2 — a deliberate support-policy choice if made).
 
 ## Local development loop
 
