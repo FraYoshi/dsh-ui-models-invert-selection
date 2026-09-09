@@ -1,0 +1,4 @@
+# npm pack output (generated artifact for manual testing)
+*.tgz
+# local install artifacts
+node_modules/
