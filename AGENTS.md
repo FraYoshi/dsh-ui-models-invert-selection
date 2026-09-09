@@ -35,7 +35,9 @@ If you fork/rename, update all three.
 `lib/client.js` exports a single `apply(ctx)` that:
 
 1. Creates a `MutationObserver` on `document.body` (subtree, childList).
-2. On each added node, `scan()` looks for `div[class*="candidateActions"]` (the dialog's action row).
+2. On each added node, `scan()` looks for the dialog's action row: `div[class*="candidateActions"], div[class*="candidateToolbar"]`.
+   - **`candidateActions`** — the action row in dsh `<= 0.1.1-rc.2`.
+   - **`candidateToolbar`** — the action row in dsh `>= 0.1.2-rc.1` (the row gained a candidate search input and the select-all ghost button moved into it). Matching both spellings keeps the plugin working across that boundary.
 3. For each candidate action row, `injectInto()`:
    - Skips if the row already has `data-modinv-injected="1"` (idempotent).
    - Finds the existing button in that row (`actionsDiv.querySelector("button")`).
@@ -57,26 +59,32 @@ If you fork/rename, update all three.
 
 ## CSS-module class dependencies (fragile)
 
-The plugin relies on two CSS-module base names from `@deepseek-ai/dsh-client-ui-models` (or whichever package ships the Models settings section):
+The plugin relies on two CSS-module base names from `@deepseek-ai/dsh-client-ui-settings-models` (the package that ships the Models settings section):
 
 | Selector | Purpose | Location in `lib/client.js` |
 |----------|---------|----------------------------|
-| `div[class*="candidateActions"]` | Dialog action row (injection target) | `scan()` → `rootNode.querySelectorAll()` |
+| `div[class*="candidateActions"], div[class*="candidateToolbar"]` | Dialog action row (injection target) — `candidateActions` on dsh `<= 0.1.1-rc.2`, `candidateToolbar` on dsh `>= 0.1.2-rc.1` | `scan()` → `rootNode.querySelectorAll()` |
 | `div[class*="candidateList"]` | Candidate list (checkbox source) | `injectInto()` → `parent.querySelector()` |
 
 The `*=` wildcard match is intentional: it survives hash suffix changes on rebuilds, but **breaks if the base name changes**.
 
 ### Upstream breakage protocol
 
-After upgrading `@deepseek-ai/dsh-client-ui-models`:
+After upgrading `@deepseek-ai/dsh-client-ui-settings-models`:
 
 1. Open the fetch-models dialog and verify:
-   - Button appears next to existing action button (8px gap, same ghost/sm style)
+   - Button appears next to the select-all ghost button in the toolbar (same ghost/sm style)
    - Click flips all checkboxes (checked count goes all→none or none→all)
    - Submit with inverted selection adds/skips the right models
-2. If any regresses: search the new `lib/client.js` of the upstream package for `candidateActions` / `candidateList`. If the base name changed, update the selectors in `lib/client.js`.
+2. If any regresses: search the new `lib/client.js` of the upstream package for `candidateActions` / `candidateToolbar` / `candidateList`. If the base name changed, add the new spelling to the dual selector in `scan()` (keep the old one — the plugin must keep working on the previous dsh release) and update this table.
 3. Bump version: patch for single-name fix, minor for structural change, major for API change.
 4. `npm publish` (see Publishing below).
+
+#### Known upstream changes
+
+| dsh version | Change | Impact |
+|-------------|--------|--------|
+| `0.1.2-rc.1` | Action row renamed `candidateActions` → `candidateToolbar`; gained a candidate search input; dialog gained a footer (Cancel / Adopt) | Fixed by the dual selector in `scan()` (commit history: "fix selectors for dsh 0.1.2-rc.1"). `candidateList` unchanged; preselect logic unchanged. |
 
 ## cordis.patch.yml
 
@@ -102,7 +110,7 @@ After upgrading `@deepseek-ai/dsh-client-ui-models`:
     "./client": { "default": "./lib/client.js" },
     "./package.json": "./package.json"
   },
-  "files": ["lib", "cordis.patch.yml", "README.md", "LICENSE"],
+  "files": ["lib", "cordis.patch.yml", "README.md", "AGENTS.md", "LICENSE"],
   "dsh": {
     "bundle": { "patch": "./cordis.patch.yml" },
     "client": { "platform": "web" }
@@ -148,7 +156,7 @@ npm publish --access public
 git push --follow-tags origin main
 ```
 
-Typical unpacked size: ~19 kB (6 files). The `files` whitelist is the source of truth.
+Typical unpacked size: ~19 kB (7 files). The `files` whitelist is the source of truth.
 
 ## Install command reference
 
